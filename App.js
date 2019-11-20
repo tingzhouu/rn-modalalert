@@ -25,12 +25,13 @@ class App extends React.Component {
         <ModalView
           ref={ref => this.modalView = ref} 
           //other Modal props
-          style={{ borderColor: 'red', borderWidth: 2 }}
         >
-          <Text>
-            Model Stuff
-          </Text>
-          <Text onPress={this.hideTheModal} >Hide The Modal</Text>
+          <View style={{ flex: 1 }}>
+            <Text>
+              Modal Stuff
+            </Text>
+            <Text onPress={this.hideTheModal} >Hide The Modal</Text>
+          </View>
         </ModalView>
       </View>
     );
@@ -43,6 +44,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: 20,
   },
 });
 
