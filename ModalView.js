@@ -3,41 +3,43 @@ import { Platform, View, Text, Button } from 'react-native';
 import React from 'react';
 
 class ModalView extends React.Component {
-    state = {
-        visible: false
-    };
+  state = {
+    visible: false,
+  };
 
-    close({then} = {}) {
-        if (Platform.OS === 'ios') {
-            this.setState({visible: false, onDismiss: then});
-        } else {
-            this.setState({visible: false});
-            if (then !== undefined) {
-                then();
-            }
-        }
+  close = ({ callBackFunctionAfterModalIsClosed } = {}) => {
+    if (Platform.OS === 'ios') {
+      this.setState({ visible: false, onDismiss: callBackFunctionAfterModalIsClosed });
+    } else {
+      this.setState({ visible: false });
+      if (callBackFunctionAfterModalIsClosed !== undefined) {
+        callBackFunctionAfterModalIsClosed();
+      }
     }
+  }
 
-    show() {
-        this.setState({ visible: true });
-    }
+  show = () => {
+    this.setState({ visible: true });
+  }
 
-    render() {
-        return (
-            <Modal
-                coverScreen={false}
-                backdropColor="#00d7af"
-                isVisible={this.state.visible}
-                onDismiss={this.state.onDismiss}
-                {...this.props}
-            >
-                <View style={{ borderColor: 'red', borderWidth: 2, flex: 1 }}>
-                    <Text>Hello!</Text>
-                    <Button title="Hide modal" onPress={this.toggleModal} />
-                </View>
-            </Modal>
-        );
-    }
+  render() {
+    const { renderModalContent } = this.props;
+    return (
+      <Modal
+        animationIn="fadeIn"
+        animationOut="fadeOut"
+        backdropTransitionOutTiming={0}
+        coverScreen={true}
+        backdropColor="#00d7af"
+        isVisible={this.state.visible}
+        onDismiss={this.state.onDismiss}
+        onBackdropPress={this.close}
+        {...this.props}
+      >
+        {renderModalContent()}
+      </Modal>
+    );
+  }
 }
 
 export default ModalView;

@@ -1,37 +1,48 @@
 import React from 'react';
-import { StyleSheet, Text, View, Alert } from 'react-native';
+import { StyleSheet, Text, View, Alert, Button } from 'react-native';
 import ModalView from './ModalView';
 
 class App extends React.Component {
   callTheModal = () => {
     this.modalView.show();
-  }
+  };
 
-  hideTheModal= () => {
+  hideTheModal = () => {
     this.modalView.close({
       then: () => {
         Alert.alert('Hello!');
-      }
+      },
     });
-  }
+  };
+
+  renderModalContent = () => {
+    return (
+      <View
+        style={{
+          borderColor: 'red',
+          borderWidth: 2,
+          width: 200,
+          height: 100,
+          backgroundColor: 'white',
+          alignSelf: 'center',
+        }}
+      >
+        <Text>Hello!</Text>
+        <Button title="Hide modal" onPress={this.hideTheModal} />
+      </View>
+    );
+  };
 
   render() {
     return (
       <View style={styles.container}>
         <Text>Open up App.js to start working on your app!</Text>
-        <Text onPress={this.callTheModal}>
-          Call The Modal
-        </Text>
+        <Text onPress={this.callTheModal}>Call The Modal</Text>
         <ModalView
-          ref={ref => this.modalView = ref} 
+          ref={ref => (this.modalView = ref)}
           //other Modal props
+          renderModalContent={this.renderModalContent}
         >
-          <View style={{ flex: 1 }}>
-            <Text>
-              Modal Stuff
-            </Text>
-            <Text onPress={this.hideTheModal} >Hide The Modal</Text>
-          </View>
         </ModalView>
       </View>
     );
