@@ -41,7 +41,8 @@ class App extends React.Component {
         <ModalView
           ref={ref => (this.modalView = ref)}
           //other Modal props
-          renderModalContent={this.renderModalContent}
+          // renderModalContent={this.renderModalContent}
+          renderModalContent={() => <View style={{ borderColor: 'red', borderWidth: 2, height: 100, width: 200 }} />}
         >
         </ModalView>
       </View>
